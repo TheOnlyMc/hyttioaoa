@@ -78,7 +78,7 @@ Uses VS Code’s globalState only for a short-lived timestamp.
 
 Credits
 
-Meme image inspired by The IT Crowd. Please ensure you have rights to distribute any images you ship with the extension.
+Meme image inspired by The IT Crowd.
 
 License
 
