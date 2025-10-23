@@ -1,71 +1,96 @@
-# hyttioaoa README
+HYTTIOAOA? — Have You Tried Turning It Off and On Again?
 
-This is the README for your extension "hyttioaoa". After writing up a brief description, we recommend including the following sections.
+A tiny VS Code extension that puts a one-click reload button in the Activity Bar.
+Click the meme, VS Code reloads. After reload it briefly shows a “working” image for ~20s, then flips back to the meme.
 
-## Features
+Because sometimes the most powerful fix is… rebooting the window. 😉
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Features
 
-For example if there is an image subfolder under your extension project workspace:
+Activity Bar view named HYTTIOAOA? with a meme in a compact sidebar webview
 
-\!\[feature X\]\(images/feature-x.png\)
+One click = Developer: Reload Window (workbench.action.reloadWindow)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Post-reload status: shows working.jpg for a configurable duration, then returns to the meme
 
-## Requirements
+Optional command to reload without opening the view
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+How it works
 
-## Extension Settings
+Clicking the image posts a message to the extension.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+The extension sets a short-lived timestamp in globalState and calls workbench.action.reloadWindow.
 
-For example:
+After VS Code restarts, the extension reads the timestamp:
 
-This extension contributes the following settings:
+If it’s still “fresh”, the webview shows working.jpg and automatically switches back after the remaining time.
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+While working.jpg is visible, clicks are disabled to avoid accidental re-reloads.
 
-## Known Issues
+Requirements
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None. Standard VS Code API only.
 
-## Release Notes
+Extension Settings
+Setting	Type	Default	Description
+hyttioaoa.workingDurationMs (optional if you add it)	number	20000	How long working.jpg should be shown after a reload, in milliseconds.
+Commands
+Command	Title	What it does
+hyttioaoa.reload	HYTTIOAOA?: Reload VS Code (Have you tried…)	Triggers the same behavior as clicking the image: sets the “working” timer and reloads the window.
+Installation
 
-Users appreciate release notes as you update your extension.
+From VSIX
 
-### 1.0.0
+Download hyttioaoa-1.0.0.vsix
 
-Initial release of ...
+VS Code → Extensions (left sidebar) → … → Install from VSIX…
 
-### 1.0.1
+From Marketplace
+Search for HYTTIOAOA? and click Install.
 
-Fixed issue #.
+Usage
 
-### 1.1.0
+Click the HYTTIOAOA? icon in the Activity Bar.
 
-Added features X, Y, and Z.
+Click the image → VS Code reloads.
 
----
+After reload, a working screen appears for ~20s, then switches back to the meme.
 
-## Following extension guidelines
+Troubleshooting
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+The icon looks tiny: ensure your Activity Bar icon is an SVG with viewBox="0 0 24 24" and no extra padding; use fill="currentColor" or stroke="currentColor".
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+Clicking during the working screen: clicks are disabled intentionally until the timer ends, to prevent double reloads.
 
-## Working with Markdown
+No image showing: verify files exist at media/have-you-tried.jpg and media/working.jpg, and that media is in webview.options.localResourceRoots.
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+Known Issues
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+If VS Code closes unexpectedly during the working phase, the “show until” timestamp may expire while it’s closed — harmless; the next start will just show the meme view.
 
-## For more information
+Security / Privacy
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+No telemetry.
 
-**Enjoy!**
+No external network requests.
+
+Uses VS Code’s globalState only for a short-lived timestamp.
+
+Credits
+
+Meme image inspired by The IT Crowd. Please ensure you have rights to distribute any images you ship with the extension.
+
+License
+
+MIT
+
+Release Notes
+1.0.0
+
+First stable release
+
+Activity Bar webview with meme
+
+Post-reload “working” screen + timed swap back
+
+Command hyttioaoa.reload
