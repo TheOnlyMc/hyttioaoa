@@ -17,6 +17,10 @@
     "sidebar",
     "meme"
   ],
+  "activationEvents": [
+    "onView:hyttioaoa.view",
+    "onCommand:hyttioaoa.reload"
+  ],
   "engines": {
     "vscode": "^1.103.0"
   },
