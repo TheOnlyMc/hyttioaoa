@@ -3,9 +3,10 @@
   "displayName": "hyttioaoa",
   "publisher": "erikjessen",
   "description": "HYTTIOAOA? Click the picture to reload the VSCode window!",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "icon": "images/icon.png",
   "license": "MIT",
+  "extensionKind": ["ui"],
   "repository": {
     "type": "git",
     "url": "https://github.com/theonlymc/hyttioaoa"
